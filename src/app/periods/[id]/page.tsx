@@ -98,6 +98,34 @@ export default async function PeriodPage({ params }: { params: Promise<{ id: str
         </div>
       )}
 
+      <div className="card">
+        <div className="card-head" style={{ marginBottom: 0 }}>
+          <div>
+            <h2 style={{ marginBottom: 2 }}>出力・配布</h2>
+            <p className="muted small" style={{ margin: 0 }}>
+              貼り出す月間表、各自に配る個人表、Excel で開ける CSV を出力できます。
+            </p>
+          </div>
+          <div className="row">
+            <Link className="btn" href={`/periods/${period.id}/print`}>
+              月間シフト表(印刷)
+            </Link>
+            <Link className="btn" href={`/periods/${period.id}/print/staff`}>
+              個人シフト表(印刷)
+            </Link>
+            <a className="btn" href={`/periods/${period.id}/export?type=matrix`}>
+              CSV:シフト表
+            </a>
+            <a className="btn" href={`/periods/${period.id}/export?type=staff`}>
+              CSV:スタッフ別
+            </a>
+            <a className="btn" href={`/periods/${period.id}/export?type=detail`}>
+              CSV:明細
+            </a>
+          </div>
+        </div>
+      </div>
+
       <ScheduleBoard ctx={ctx} />
 
       <div className="card" style={{ marginTop: 16 }}>

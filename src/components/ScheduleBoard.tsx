@@ -22,6 +22,7 @@ import {
 } from "@/lib/time";
 import { AVAILABILITY_LABEL } from "@/lib/labels";
 import type { Assignment, ScheduleContext, WeeklyTemplateSlot } from "@/lib/types";
+import { buildLanes } from "@/lib/lanes";
 import { StaffPicker } from "./StaffPicker";
 
 type OptimisticAction = {
@@ -31,39 +32,6 @@ type OptimisticAction = {
   staffId: string;
   assign: boolean;
 };
-
-type Lane = {
-  key: string;
-  slotType: "lesson" | "shift";
-  label: string;
-  startTime: string;
-  endTime: string;
-  color: string;
-  byDay: Map<number, WeeklyTemplateSlot>;
-};
-
-function buildLanes(ctx: ScheduleContext): Lane[] {
-  const lanes = new Map<string, Lane>();
-  for (const slot of ctx.slots) {
-    const label = slotLabel(slot, ctx.lessonTypes);
-    const key = `${slot.slotType}|${label}|${slot.startTime}|${slot.endTime}`;
-    const lane = lanes.get(key) ?? {
-      key,
-      slotType: slot.slotType,
-      label,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-      color: slotColor(slot, ctx.lessonTypes),
-      byDay: new Map<number, WeeklyTemplateSlot>(),
-    };
-    lane.byDay.set(slot.dayOfWeek, slot);
-    lanes.set(key, lane);
-  }
-  return [...lanes.values()].sort((a, b) => {
-    if (a.slotType !== b.slotType) return a.slotType === "lesson" ? -1 : 1;
-    return a.startTime.localeCompare(b.startTime) || a.label.localeCompare(b.label);
-  });
-}
 
 export function ScheduleBoard({ ctx: initialCtx }: { ctx: ScheduleContext }) {
   // サーバー側の変更(自動生成・全消去)がそのまま反映されるよう、

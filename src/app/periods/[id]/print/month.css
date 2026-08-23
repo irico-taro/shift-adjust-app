@@ -1,0 +1,30 @@
+/* 月間シフト表は A4 横で1枚に収める */
+@page {
+  size: A4 landscape;
+  margin: 8mm;
+}
+
+/* 週末行の背景色より後に効かせて、枠なしセルの網掛けを保つ */
+table.sheet-table td.no-slot {
+  background: repeating-linear-gradient(45deg, #fff, #fff 3px, #e4e8ee 3px, #e4e8ee 6px);
+}
+tr.sun td.no-slot,
+tr.sat td.no-slot {
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 3px, #e4e8ee 3px, #e4e8ee 6px);
+}
+
+/* 31日分を1ページに収めるため、印刷時は行を詰める */
+@media print {
+  .sheet-title { font-size: 13pt; }
+  .sheet-head { margin-bottom: 4pt; padding-bottom: 2pt; }
+  table.sheet-table th,
+  table.sheet-table td {
+    font-size: 6.8pt;
+    padding: 0.6pt 2pt;
+  }
+  table.sheet-table thead th { font-size: 6.5pt; }
+  .lane-head-time { font-size: 6pt; }
+  .lane-head-bar { height: 2pt; margin-bottom: 1pt; }
+  .name { line-height: 1.2; }
+  .sheet-foot { font-size: 6.5pt; margin-top: 3pt; }
+}
