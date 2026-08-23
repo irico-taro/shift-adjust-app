@@ -8,6 +8,9 @@
 
 ## セットアップ
 
+必要環境: **Node.js 22 または 24**(`node -v` で確認)。
+SQLite ドライバのビルド済みバイナリが配布されているため、Python や C++ ビルドツールは不要です。
+
 ```bash
 npm install
 npm run dev      # http://localhost:3000
@@ -112,6 +115,28 @@ npm run typecheck
 `tests/rules.test.ts` に18件。DB を使わず、手で組んだデータで純粋関数の振る舞いを検証します
 (日跨ぎ勤務の時間計算、各ルールの検出、たたき台がエラーレベルの違反を作らないこと、
 希望 NG の人を割り当てないこと、など)。
+
+## うまくいかないときは
+
+**`npm install` が `gyp ERR! find Python` で失敗する**
+
+`better-sqlite3` がお使いの Node.js 用のビルド済みバイナリを見つけられず、自前ビルドに切り替わった状態です。
+まず `node -v` を確認してください。Node 20 以下、または 25 以降の場合はビルド済みバイナリが無いため、
+**Node.js 22 か 24** に入れ替えるのが確実です(Python の導入は不要)。
+
+失敗した `node_modules` が中途半端に残っていると次のインストールも失敗するので、
+入れ替え後はフォルダごと消してからやり直してください。
+
+```bash
+# Windows (PowerShell)
+Remove-Item -Recurse -Force node_modules
+npm install
+```
+
+**ポート 3000 が使用中と言われる / 別のポートで起動する**
+
+起動時のログに出た `Local:` の URL を開いてください。任意のポートを指定するには `PORT=3001 npm run dev`
+(PowerShell では `$env:PORT=3001; npm run dev`)。
 
 ## 今後詰める論点(要件定義 6.)
 
