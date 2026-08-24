@@ -106,7 +106,8 @@ export default async function PrintMonthPage({ params }: { params: Promise<{ id:
 
         <div className="sheet-foot">
           <span>枠の色:</span>
-          {lanes.map((lane) => (
+          {/* 同じレッスン種別が時間帯違いで複数レーンになるため、凡例は名前で重複を除く */}
+          {[...new Map(lanes.map((lane) => [lane.label, lane])).values()].map((lane) => (
             <span className="legend-item" key={lane.key}>
               <span className="legend-swatch" style={{ background: lane.color }} />
               {lane.label}
