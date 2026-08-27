@@ -22,7 +22,7 @@ import type {
   WorkRule,
 } from "../src/lib/types";
 
-const STUDIO = "スタジオ・ミモザ";
+const STUDIO = "〇〇スタジオ";
 const START = "2026-09-01";
 const END = "2026-09-30";
 
