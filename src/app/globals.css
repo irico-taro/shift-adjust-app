@@ -25,7 +25,8 @@ html, body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+  /* 帳票は Windows で印刷することが多いため Meiryo を第一候補にする */
+  font-family: Meiryo, "メイリオ", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
     "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.6;
