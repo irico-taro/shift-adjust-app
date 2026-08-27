@@ -145,7 +145,8 @@ export default async function PrintStaffPage({ params }: { params: Promise<{ id:
                 <span key={w.weekStart}>
                   {" "}
                   {parseDate(w.weekStart).getUTCMonth() + 1}/{parseDate(w.weekStart).getUTCDate()}〜{" "}
-                  {hoursFromMinutes(w.minutes)}h
+                  {/* 配布物なので週の時間は小数第1位までにする */}
+                  {Math.round(hoursFromMinutes(w.minutes) * 10) / 10}h
                 </span>
               ))}
             </span>

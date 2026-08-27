@@ -76,6 +76,21 @@ npm run typecheck
 | `staff` | スタッフ × 日付(+コマ数・合計時間) | 各自の勤務を横一列で確認する |
 | `detail` | 1行1割当(時間数つき) | 給与計算や集計に取り込む |
 
+## サンプル帳票の作成
+
+出品ページや提案資料に載せる帳票サンプルを、業種別のデモデータから生成できます。
+登場する店舗名・氏名はすべて架空で、希望シフトは決定論的に作るため何度実行しても同じ結果になります。
+
+```bash
+npm run demo:data            # ヨガスタジオ  -> data/demo-studio.db
+npm run demo:data -- juku    # 学習塾        -> data/demo-juku.db
+
+SHIFT_DB_PATH=data/demo-juku.db npm run build && SHIFT_DB_PATH=data/demo-juku.db npm start
+```
+
+起動後に `/periods/demo-period/print` と `/print/staff` を開いて印刷(PDF保存)します。
+業種を増やす場合は `scripts/demo-data.ts` の `PRESETS` に追加してください。
+
 ## データモデル
 
 要件定義 2. の各テーブルに対応します(SQL は `src/lib/schema.ts`)。
